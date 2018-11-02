@@ -77,4 +77,41 @@ print(missing)
 # 
 
 # Exercises 5.3.1 (1-4)
+# How could you use arrange() to sort all missing values to the start? (Hint: use is.na()).
+arranged = arrange(flights, desc(is.na(dep_delay)))
+print(arranged)
+
+# Sort flights to find the most delayed flights. Find the flights that left earliest.
+mostDelayed = arrange(flights, desc(dep_delay))
+print(mostDelayed)
+leftEarliest <- arrange(flights, dep_time)
+print(leftEarliest)
+
+# Sort flights to find the fastest flights.
+fastest <- arrange(flights, air_time)
+print(fastest)
+
+# Which flights travelled the longest? Which travelled the shortest?
+longest <- arrange(flights, desc(distance))
+print(longest)
+shortest <- arrange(flights, distance)
+print(shortest)
+
 # Exercises 5.4.1 (2-4)
+# 2. What happens if you include the name of a variable multiple times in a select() call?
+# It only uses the first time the variable is named
+multiple <- select(flights, year, dep_delay, year)
+print(multiple)
+
+# 3. What does the one_of() function do?
+#    Why might it be helpful in conjunction with this vector?
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+oneOfExample <- select(flights, one_of(vars))
+
+
+# 4. Does the result of running the following code surprise you? - NO
+# How do the select helpers deal with case by default? - Ignores case
+# How can you change that default?
+#    select(flights, contains("TIME"))
+containsExample <- select(flights, contains("TIME"))
+containsExample <- select(flights, contains("time", ignore.case = FALSE))
