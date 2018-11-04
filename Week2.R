@@ -1,3 +1,4 @@
+
 library(dplyr)
 library(nycflights13)
 library(knitr)
@@ -37,7 +38,8 @@ select(late, arr_delay, dep_delay)
 
 
 # 6.Were delayed by at least an hour, but made up over 30 minutes in flight
-made_up <- filter(flights, dep_delay >= 60 & (dep_delay - arr_delay) > 30)
+#made_up <- filter(flights, dep_delay >= 60 & (dep_delay - arr_delay) > 30)
+made_up <- filter(flights, dep_delay >= 60 & arr_delay < 30)
 print(made_up)
 select(made_up, arr_delay, dep_delay)
 
@@ -51,7 +53,7 @@ select(departed2, dep_time)
 
 # 2.Another useful dplyr filtering helper is  between().
 # What does it do? Can you use it to simplify the code needed to answer the previous challenges?
-departed2 <- filter(flights, between(dep_time, 0, 600, incbounds=TRUE)
+departed2 <- filter(flights, between(dep_time, 0, 600))
 print(departed2)
 select(departed2, dep_time)
 
