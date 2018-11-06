@@ -283,4 +283,31 @@ show_mean(iris)
 
 
 # ------------------ Exercises: 21.5.3 #1 ---------------------
+# 1. Write code that uses one of the map functions to:
+#    1. Compute the mean of every column in  mtcars.
+library (purrr)
+output <- map_dbl (mtcars, mean)
+print (output)
+
+
+#    2. Determine the type of each column in  nycflights13::flights.
+library(nycflights13)
+library (purrr)
+output <- map_chr (flights, typeof)
+print (output)
+
+
+#    3. Compute the number of unique values in each column of  iris
+library (purrr)
+library (dplyr)
+output <- map_int(iris, function(x) length(unique(x)))
+print (output)
+#output <- map_int (iris, length(unique))  # doesn't work
+
+
+#    4. Generate 10 random normals for each of µ=-10, 0, 10, and 100
+library (purrr)
+means <- c(-10, 0, 10, 100)
+output <- map (means, function(x) rnorm(n = 10, mean = x))
+print(output)
 
