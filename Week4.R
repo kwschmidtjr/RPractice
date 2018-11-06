@@ -189,6 +189,98 @@ x["f"] # returns <NA>
 
 
 # ------------------ Exercises: 21.2.1 #1-4 ---------------------
+library(tidyverse)
+
+# 1.Write for loops to:
+#   1.Compute the mean of every column in  mtcars .
+output <- vector("double", ncol(mtcars))
+for (i in seq_along(mtcars)) {
+  output[[i]] <- mean(mtcars[[i]])
+}
+print(output)
+
+
+#   2.Determine the type of each column in  nycflights13::flights
+library(nycflights13)
+for (i in seq_along(flights)) {
+  print(colnames(flights)[i])
+  print(typeof(flights[[i]]))
+}
+
+#   3.Compute the number of unique values in each column of  iris
+library(dplyr)
+for (i in seq_along(iris)) {
+  if (typeof(iris[[i]]) == "double") {
+    output <- c (colnames(iris)[i], "has", length(unique(iris[[i]])), "unique values")
+    print(output)
+  }
+}
+
+#   4.Generate 10 random normals for each of µ=-10, 0, 10, and 100
+means <- c(-10, 0, 10, 100)
+for (i in seq_along(means)) {
+  print (rnorm (10, means[[i]]))
+}
+
+# 2. Eliminate the for loop in each of the following examples by taking
+#    advantage of an existing function that works with vectors:
+# String of letters
+library(stringr)
+str_c(letters, collapse = "") 
+
+# Standard deviation
+x <- sample(100)
+print(sd(x))
+
+# Cumulative sum
+cumsum(x)
+
 
 # ------------------ Exercises: 21.3.5 #1-3 ---------------------
+# 1. Imagine you have a directory full of CSV files that you want to read in.
+#    You have their paths in a vector,  
+#    files <- dir("data/", pattern = "\\.csv$", full.names = TRUE),
+#    and now want to read each one with  read_csv().
+#    Write the for loop that will load them into a single data frame.
+
+# Need to work on this one at home
+
+
+# 2. What happens if you use  for (nm in names(x))  and  x  has no names?
+#    What if only some of the elements are named? What if the names are not unique?
+library(stringr)
+x <- c(1:5)
+names(x)  # Returns null because no names
+for (nm in names(x)) {
+  print (nm)  # Doesn't reach this point because nm is empty
+}
+
+names(x) <- c( "a", "b", "c", "d")
+for (nm in names(x)) {
+  print (nm)  # Prints NA for the element without a name
+}
+
+names(x) <- c( "a", "b", "b", "d", "e")
+for (nm in names(x)) {
+  print (nm)  # Prints the name "b" twice because two items are named "b"
+}
+
+# 3. Write a function that prints the mean of each numeric column in a data frame,
+#    along with its name
+#library(dplyr)
+library(stringr)
+show_mean <- function (df) {
+  for (nm in names(df)) { 
+    if (is.numeric(df[[nm]])) { 
+      mean <- mean(df[[nm]])
+      output <- str_c(nm, " is ", mean, sep = " ")
+      print(output)
+    }
+  }
+}
+show_mean(iris)
+
+
+
 # ------------------ Exercises: 21.5.3 #1 ---------------------
+
